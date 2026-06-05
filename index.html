@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Александр Добровицкий — персональный тренер по боксу в Гомеле. Индивидуальные и групповые тренировки, подготовка к соревнованиям." />
+<title>АЛЕКСАНДР ДОБРОВИЦКИЙ — ТРЕНЕР ПО БОКСУ · ГОМЕЛЬ</title>
+
+<!-- ШРИФТЫ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   БАЗОВЫЙ СБРОС
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+*::selection { background: #ff2d2d; color: #fff; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0a0a0a;
+  color: #e8e8e8;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; border: none; background: none; cursor: none; }
+
+/* ============================================================
+   КАСТОМНЫЙ КУРСОР
+   ============================================================ */
+.cursor {
+  position: fixed;
+  width: 20px; height: 20px;
+  border: 2px solid #ff2d2d;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform .15s ease, background .2s ease, width .2s, height .2s;
+  mix-blend-mode: difference;
+}
+.cursor.hover { transform: translate(-50%, -50%) scale(2.2); background: #ff2d2d; opacity: .6; }
+.cursor-dot {
+  position: fixed;
+  width: 6px; height: 6px;
+  background: #ff2d2d;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+}
+
+/* ============================================================
+   ПРЕЛОАДЕР
+   ============================================================ */
+.preloader {
+  position: fixed; inset: 0;
+  background: #0a0a0a;
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  transition: opacity .6s ease, visibility .6s;
+}
+.preloader.hidden { opacity: 0; visibility: hidden; }
+.preloader-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: .3em;
+  color: transparent;
+  -webkit-text-stroke: 2px #ff2d2d;
+  position: relative;
+  overflow: hidden;
+}
+.preloader-title::after {
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  color: #ff2d2d;
+  width: 0%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: loadText 2.2s ease-in-out forwards;
+  border-right: 4px solid #ff2d2d;
+}
+@keyframes loadText { 0% { width: 0; } 90% { width: 100%; } 100% { width: 100%; border-color: transparent; } }
+.preloader-sub {
+  margin-top: 1.5rem;
+  color: #555;
+  letter-spacing: .5em;
+  font-size: .8rem;
+  text-transform: uppercase;
+}
+.preloader-bar {
+  width: 220px; height: 2px;
+  background: #1a1a1a;
+  margin-top: 2rem;
+  position: relative; overflow: hidden;
+}
+.preloader-bar::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, #ff2d2d, transparent);
+  animation: loadBar 1.6s ease-in-out infinite;
+}
+@keyframes loadBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* ============================================================
+   ФОНОВЫЕ ЧАСТИЦЫ
+   ============================================================ */
+.bg-grid {
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,45,45,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,45,45,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: -2;
+  pointer-events: none;
+}
+.bg-glow {
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(255,45,45,.18), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(180,30,30,.15), transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+  animation: glowMove 14s ease-in-out infinite alternate;
+}
+@keyframes glowMove {
+  0% { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-5%, 3%) scale(1.1); }
+}
+
+/* ============================================================
+   НАВИГАЦИЯ
+   ============================================================ */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: all .4s ease;
+  background: rgba(10,10,10,.0);
+  gap: 2rem;
+}
+.navbar.scrolled {
+  background: rgba(10,10,10,.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: .8rem 3rem;
+  border-bottom: 1px solid rgba(255,45,45,.15);
+}
+.logo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: .12em;
+  display: flex; align-items: center; gap: .6rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.logo-mark {
+  width: 32px; height: 32px;
+  background: #ff2d2d;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; color: #000;
+  clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%);
+  flex-shrink: 0;
+}
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+  flex: 1;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.nav-links li { white-space: nowrap; }
+.nav-links a {
+  font-size: .8rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  position: relative;
+  padding: .3rem 0;
+  transition: color .3s;
+  white-space: nowrap;
+  display: inline-block;
+}
+.nav-links a::after {
+  content: ''; position: absolute;
+  left: 0; bottom: -4px; width: 0; height: 1px;
+  background: #ff2d2d;
+  transition: width .3s ease;
+}
+.nav-links a:hover { color: #ff2d2d; }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  padding: .75rem 1.4rem;
+  background: #ff2d2d;
+  color: #fff;
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border: 1px solid #ff2d2d;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: #fff;
+  transform: translateX(-100%);
+  transition: transform .3s ease;
+  z-index: 0;
+}
+.nav-cta:hover { color: #ff2d2d; }
+.nav-cta:hover::before { transform: translateX(0); }
+.nav-cta span { position: relative; z-index: 1; }
+
+.burger { display: none; flex-direction: column; gap: 5px; }
+.burger span { width: 26px; height: 2px; background: #fff; transition: .3s; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex; align-items: center;
+  padding: 0 4rem;
+  overflow: hidden;
+}
+.hero-content {
+  position: relative; z-index: 5;
+  max-width: 900px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .8rem;
+  font-size: .8rem; letter-spacing: .3em; text-transform: uppercase;
+  color: #ff2d2d;
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 1s ease forwards .3s;
+}
+.hero-eyebrow::before {
+  content: ''; width: 40px; height: 1px; background: #ff2d2d;
+}
+.hero-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: .92;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 1s ease forwards .5s;
+}
+.hero-name .line { display: block; overflow: hidden; }
+.hero-name .line span { display: inline-block; }
+.hero-name .last {
+  -webkit-text-stroke: 2px #ff2d2d;
+  color: transparent;
+  position: relative;
+}
+.hero-name .last::after {
+  content: '';
+  position: absolute;
+  bottom: 8%; left: 0;
+  width: 100%; height: 6px;
+  background: #ff2d2d;
+  animation: lineGrow 1.4s cubic-bezier(.2,.8,.2,1) forwards 1.6s;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+@keyframes lineGrow { to { transform: scaleX(1); } }
+
+.hero-sub {
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  color: #aaa;
+  max-width: 600px;
+  margin-bottom: 3rem;
+  line-height: 1.5;
+  opacity: 0; animation: fadeUp 1s ease forwards .8s;
+}
+.hero-sub b { color: #fff; font-weight: 600; }
+
+.hero-cta {
+  display: flex; gap: 1.2rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 1s ease forwards 1s;
+}
+.btn {
+  padding: 1.1rem 2.4rem;
+  font-size: .9rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-flex; align-items: center; gap: .8rem;
+  transition: all .3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid;
+}
+.btn-primary {
+  background: #ff2d2d; color: #fff; border-color: #ff2d2d;
+}
+.btn-primary:hover {
+  background: transparent; color: #ff2d2d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(255,45,45,.5);
+}
+.btn-ghost {
+  background: transparent; color: #fff; border-color: #333;
+}
+.btn-ghost:hover {
+  border-color: #ff2d2d; color: #ff2d2d;
+  transform: translateY(-2px);
+}
+.btn .arrow { transition: transform .3s; }
+.btn:hover .arrow { transform: translateX(5px); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* HERO-ФОН: ВИДЕО НА ВЕСЬ ЭКРАН */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: grayscale(60%) contrast(1.15) brightness(.55);
+  opacity: 0;
+  animation: fadeIn 1.4s ease forwards .4s;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, #0a0a0a 0%, rgba(10,10,10,.85) 40%, rgba(10,10,10,.4) 100%),
+    linear-gradient(180deg, rgba(10,10,10,.4) 0%, transparent 30%, rgba(10,10,10,.7) 100%);
+  z-index: 1;
+}
+.hero-content { z-index: 5; max-width: 800px; }
+@keyframes fadeIn { to { opacity: 1; } }
+
+.hero-stats {
+  position: absolute;
+  bottom: 4rem; left: 4rem; right: 4rem;
+  display: flex; gap: 3rem; z-index: 5;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  opacity: 0; animation: fadeUp 1s ease forwards 1.2s;
+}
+.hero-stat-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem; font-weight: 700;
+  color: #ff2d2d; line-height: 1;
+}
+.hero-stat-num .plus { color: #fff; font-size: 2rem; }
+.hero-stat-label {
+  font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+  color: #888; margin-top: .3rem;
+}
+
+.scroll-hint {
+  position: absolute; bottom: 1.5rem; right: 4rem;
+  font-size: .7rem; letter-spacing: .3em; text-transform: uppercase;
+  color: #555;
+  display: flex; align-items: center; gap: .8rem;
+  z-index: 5;
+  opacity: 0; animation: fadeUp 1s ease forwards 1.4s;
+}
+.scroll-hint::after {
+  content: ''; width: 60px; height: 1px; background: #555;
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { transform: scaleX(.4); transform-origin: left; }
+  50% { transform: scaleX(1); }
+}
+
+/* ============================================================
+   ОБЩИЕ СТИЛИ СЕКЦИЙ
+   ============================================================ */
+section { position: relative; padding: 8rem 4rem; }
+.section-head {
+  display: flex; align-items: end; justify-content: space-between;
+  margin-bottom: 5rem;
+  gap: 2rem; flex-wrap: wrap;
+}
+.section-tag {
+  font-size: .75rem; letter-spacing: .3em; text-transform: uppercase;
+  color: #ff2d2d;
+  display: flex; align-items: center; gap: .8rem;
+  margin-bottom: 1rem;
+}
+.section-tag::before { content: ''; width: 30px; height: 1px; background: #ff2d2d; }
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+.section-title .accent {
+  -webkit-text-stroke: 1.5px #ff2d2d;
+  color: transparent;
+}
+.section-desc {
+  max-width: 480px; color: #888; line-height: 1.6;
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about { background: #0a0a0a; }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
+  align-items: center;
+}
+.about-img-wrap {
+  position: relative;
+  aspect-ratio: 4/5;
+}
+.about-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter .6s;
+}
+.about-img-wrap:hover img { filter: grayscale(0%) contrast(1); }
+.about-img-wrap::before {
+  content: '';
+  position: absolute;
+  top: -20px; left: -20px;
+  width: 100px; height: 100px;
+  border-top: 3px solid #ff2d2d;
+  border-left: 3px solid #ff2d2d;
+}
+.about-img-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 100px; height: 100px;
+  border-bottom: 3px solid #ff2d2d;
+  border-right: 3px solid #ff2d2d;
+}
+.about-img-badge {
+  position: absolute;
+  bottom: -30px; right: -30px;
+  background: #ff2d2d; color: #fff;
+  width: 130px; height: 130px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  border-radius: 50%;
+  animation: spin 20s linear infinite;
+}
+.about-img-badge div {
+  position: absolute; inset: 0;
+  animation: spin 12s linear infinite reverse;
+}
+.about-img-badge div svg { width: 100%; height: 100%; }
+.about-img-badge div text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px; letter-spacing: 4px;
+  fill: #fff;
+  text-transform: uppercase;
+}
+.about-img-badge span {
+  position: relative; z-index: 2;
+  text-align: center;
+  font-size: 1.1rem; font-weight: 700;
+  line-height: 1;
+}
+.about-img-badge span small { display: block; font-size: .6rem; letter-spacing: .2em; margin-top: .3rem; font-weight: 500; opacity: .9; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.about-text h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  line-height: 1.05;
+}
+.about-text h2 .accent { -webkit-text-stroke: 1.5px #ff2d2d; color: transparent; }
+.about-text p {
+  color: #b0b0b0;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+  font-size: 1.02rem;
+}
+.about-quote {
+  border-left: 3px solid #ff2d2d;
+  padding: 1rem 0 1rem 1.5rem;
+  font-style: italic;
+  color: #fff;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+}
+.about-sig {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  color: #ff2d2d;
+  letter-spacing: .1em;
+  margin-top: 2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.about-sig::before { content: ''; width: 50px; height: 1px; background: #ff2d2d; }
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services { background: #0a0a0a; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.service-card {
+  background: linear-gradient(180deg, #131313 0%, #0c0c0c 100%);
+  padding: 3rem 2.2rem;
+  border: 1px solid #1a1a1a;
+  position: relative;
+  overflow: hidden;
+  transition: all .4s cubic-bezier(.2,.8,.2,1);
+  min-height: 360px;
+  display: flex; flex-direction: column;
+}
+.service-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 100%; height: 0;
+  background: linear-gradient(180deg, rgba(255,45,45,.15), transparent);
+  transition: height .5s;
+}
+.service-card:hover {
+  transform: translateY(-10px);
+  border-color: #ff2d2d;
+  box-shadow: 0 20px 60px -20px rgba(255,45,45,.3);
+}
+.service-card:hover::before { height: 100%; }
+.service-card::after {
+  content: ''; position: absolute;
+  top: 0; right: 0; width: 0; height: 3px;
+  background: #ff2d2d; transition: width .4s;
+}
+.service-card:hover::after { width: 100%; }
+.service-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 5rem; font-weight: 700;
+  color: transparent; -webkit-text-stroke: 1px #2a2a2a;
+  line-height: 1; margin-bottom: 1rem;
+  transition: -webkit-text-stroke-color .4s;
+}
+.service-card:hover .service-num { -webkit-text-stroke-color: #ff2d2d; }
+.service-icon {
+  width: 60px; height: 60px;
+  margin-bottom: 1.5rem;
+  color: #ff2d2d;
+  transition: transform .4s;
+}
+.service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); }
+.service-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem; font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: .03em;
+}
+.service-desc {
+  color: #888; line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+.service-meta {
+  display: flex; justify-content: space-between;
+  padding-top: 1.5rem;
+  border-top: 1px solid #1a1a1a;
+  font-size: .85rem;
+  color: #aaa;
+  position: relative;
+  z-index: 2;
+}
+.service-meta b { color: #ff2d2d; font-weight: 600; font-size: 1.1rem; }
+
+/* ============================================================
+   ACHIEVEMENTS
+   ============================================================ */
+.achievements {
+  background: linear-gradient(180deg, #0a0a0a 0%, #140505 50%, #0a0a0a 100%);
+  text-align: center;
+}
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.ach-item {
+  padding: 2rem 1rem;
+  border: 1px solid #1a1a1a;
+  position: relative;
+  background: rgba(10,10,10,.5);
+  transition: all .3s;
+}
+.ach-item:hover {
+  border-color: #ff2d2d;
+  transform: translateY(-5px);
+}
+.ach-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  color: #ff2d2d;
+  line-height: 1;
+  display: inline-block;
+}
+.ach-num .plus { color: #fff; }
+.ach-label {
+  margin-top: .5rem;
+  font-size: .8rem; letter-spacing: .2em; text-transform: uppercase;
+  color: #888;
+}
+.ach-divider { width: 30px; height: 2px; background: #ff2d2d; margin: 1rem auto; }
+
+/* ============================================================
+   PROCESS
+   ============================================================ */
+.process { background: #0a0a0a; }
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  position: relative;
+}
+.process-grid::before {
+  content: '';
+  position: absolute;
+  top: 30px; left: 5%; right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff2d2d, transparent);
+  z-index: 0;
+}
+.process-step {
+  text-align: center;
+  position: relative; z-index: 2;
+}
+.process-circle {
+  width: 60px; height: 60px;
+  margin: 0 auto 1.5rem;
+  background: #0a0a0a;
+  border: 2px solid #ff2d2d;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: #ff2d2d;
+  transition: all .3s;
+}
+.process-step:hover .process-circle {
+  background: #ff2d2d;
+  color: #fff;
+  transform: scale(1.1) rotate(360deg);
+  box-shadow: 0 0 30px rgba(255,45,45,.5);
+}
+.process-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem; text-transform: uppercase;
+  margin-bottom: .8rem; font-weight: 600;
+}
+.process-desc {
+  color: #888; line-height: 1.6; font-size: .95rem;
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gallery { background: #0a0a0a; padding-top: 4rem; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 250px 250px;
+  gap: 1rem;
+}
+.gallery-item {
+  position: relative; overflow: hidden;
+  background: #1a1a1a;
+  cursor: none;
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1);
+  transition: all .6s cubic-bezier(.2,.8,.2,1);
+}
+.gallery-item:hover img { filter: grayscale(0%) contrast(1) scale(1.1); }
+.gallery-item::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.8));
+  opacity: 0; transition: opacity .4s;
+}
+.gallery-item:hover::after { opacity: 1; }
+.gallery-item .gal-cap {
+  position: absolute; bottom: 1.5rem; left: 1.5rem;
+  z-index: 2;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all .4s;
+}
+.gallery-item:hover .gal-cap { transform: translateY(0); opacity: 1; }
+.gallery-item .gal-cap b {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  display: block;
+}
+.gallery-item .gal-cap span {
+  color: #ff2d2d; font-size: .8rem;
+  letter-spacing: .15em; text-transform: uppercase;
+}
+.gallery-item.large { grid-column: span 2; grid-row: span 2; }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testimonials {
+  background: #0a0a0a;
+  overflow: hidden;
+}
+.testi-track {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 40s linear infinite;
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.testi-card {
+  flex-shrink: 0;
+  width: 480px;
+  background: linear-gradient(180deg, #131313, #0a0a0a);
+  border: 1px solid #1a1a1a;
+  padding: 2.5rem;
+  position: relative;
+  transition: border-color .3s;
+}
+.testi-card:hover { border-color: #ff2d2d; }
+.testi-card::before {
+  content: '"';
+  position: absolute;
+  top: -20px; left: 20px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 8rem;
+  color: #ff2d2d;
+  line-height: 1;
+  opacity: .2;
+}
+.testi-stars {
+  color: #ff2d2d;
+  margin-bottom: 1rem;
+  letter-spacing: .2em;
+}
+.testi-text {
+  color: #ccc; line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  min-height: 100px;
+}
+.testi-author {
+  display: flex; align-items: center; gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #1a1a1a;
+}
+.testi-avatar {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff2d2d, #800);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.2rem;
+}
+.testi-name { font-weight: 600; }
+.testi-role { font-size: .85rem; color: #888; }
+
+/* ============================================================
+   BOOKING
+   ============================================================ */
+.booking {
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.booking::before {
+  content: 'БОКС';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(15rem, 30vw, 35rem);
+  font-weight: 700;
+  color: rgba(255,45,45,.03);
+  letter-spacing: .05em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  position: relative;
+  z-index: 2;
+  align-items: center;
+}
+.booking-info h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+.booking-info h2 .accent { -webkit-text-stroke: 2px #ff2d2d; color: transparent; }
+.booking-info p {
+  color: #aaa;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+.booking-list {
+  list-style: none;
+  margin-top: 2rem;
+}
+.booking-list li {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #1a1a1a;
+  color: #ccc;
+}
+.booking-list li::before {
+  content: '✓';
+  color: #ff2d2d;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.booking-list li b { color: #fff; margin-right: .5rem; }
+
+.booking-form {
+  background: rgba(20,10,10,.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,45,45,.2);
+  padding: 3rem;
+  position: relative;
+}
+.booking-form::before,
+.booking-form::after {
+  content: ''; position: absolute;
+  width: 30px; height: 30px;
+}
+.booking-form::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid #ff2d2d;
+  border-left: 2px solid #ff2d2d;
+}
+.booking-form::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid #ff2d2d;
+  border-right: 2px solid #ff2d2d;
+}
+.form-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.form-sub {
+  color: #888; font-size: .9rem;
+  margin-bottom: 2rem;
+}
+.form-group {
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+.form-group label {
+  display: block;
+  font-size: .75rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: .5rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  color: #fff;
+  padding: .9rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all .3s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #ff2d2d;
+  box-shadow: 0 0 0 3px rgba(255,45,45,.15);
+}
+.form-group textarea { min-height: 90px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-submit {
+  width: 100%;
+  padding: 1.2rem;
+  background: #ff2d2d;
+  color: #fff;
+  font-size: .95rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ff2d2d;
+}
+.form-submit:hover {
+  background: #fff;
+  color: #ff2d2d;
+  letter-spacing: .3em;
+}
+.form-submit:active { transform: scale(.98); }
+.form-note {
+  margin-top: 1rem;
+  font-size: .8rem;
+  color: #666;
+  text-align: center;
+}
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 2rem 0;
+}
+.form-success.show { display: block; animation: fadeUp .5s ease; }
+.form-success-icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: #ff2d2d;
+  margin: 0 auto 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; color: #fff;
+  animation: pop .5s cubic-bezier(.2,1.5,.3,1);
+}
+@keyframes pop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+.form-success h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.form-success p { color: #aaa; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact { background: #0a0a0a; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.contact-info-list {
+  list-style: none;
+  margin-top: 2rem;
+}
+.contact-info-list li {
+  display: flex; align-items: start; gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #1a1a1a;
+}
+.contact-icon {
+  width: 50px; height: 50px;
+  background: rgba(255,45,45,.1);
+  border: 1px solid rgba(255,45,45,.3);
+  display: flex; align-items: center; justify-content: center;
+  color: #ff2d2d;
+  flex-shrink: 0;
+}
+.contact-info-list b {
+  display: block;
+  font-size: .8rem; letter-spacing: .2em; text-transform: uppercase;
+  color: #888; margin-bottom: .3rem;
+}
+.contact-info-list span, .contact-info-list a {
+  font-size: 1.15rem;
+  color: #fff;
+  transition: color .3s;
+}
+.contact-info-list a:hover { color: #ff2d2d; }
+
+.contact-map {
+  background: #131313;
+  border: 1px solid #1a1a1a;
+  aspect-ratio: 4/3;
+  position: relative;
+  overflow: hidden;
+}
+.contact-map iframe {
+  width: 100%; height: 100%;
+  border: 0;
+  filter: grayscale(80%) contrast(1.1) invert(.9) hue-rotate(180deg);
+}
+
+.socials {
+  display: flex; gap: 1rem;
+  margin-top: 2rem;
+}
+.social {
+  width: 50px; height: 50px;
+  border: 1px solid #2a2a2a;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  transition: all .3s;
+}
+.social:hover {
+  background: #ff2d2d;
+  border-color: #ff2d2d;
+  transform: translateY(-3px) rotate(-5deg);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: #050505;
+  padding: 4rem 4rem 2rem;
+  border-top: 1px solid #1a1a1a;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+.footer-brand p {
+  color: #777;
+  line-height: 1.7;
+  margin-top: 1rem;
+  max-width: 360px;
+}
+.footer-title {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: .15em;
+  margin-bottom: 1.5rem;
+  color: #ff2d2d;
+}
+.footer-list { list-style: none; }
+.footer-list li { margin-bottom: .8rem; }
+.footer-list a {
+  color: #888;
+  transition: color .3s;
+}
+.footer-list a:hover { color: #fff; }
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid #1a1a1a;
+  display: flex; justify-content: space-between;
+  color: #555;
+  font-size: .85rem;
+  flex-wrap: wrap; gap: 1rem;
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  section { padding: 6rem 2.5rem; }
+  .navbar { padding: 1rem 2rem; }
+  .navbar.scrolled { padding: .7rem 2rem; }
+  .hero { padding: 0 2.5rem; }
+  .hero-photo { width: 45%; opacity: .5; }
+  .about-grid, .booking-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: 200px 200px 200px; }
+  .gallery-item.large { grid-column: span 2; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { position: static; margin-top: 4rem; }
+  .hero-video { filter: grayscale(60%) contrast(1.15) brightness(.4); }
+}
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
+  .cursor, .cursor-dot { display: none; }
+  .navbar { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .burger { display: flex; }
+  .nav-cta { display: none; }
+  section { padding: 4.5rem 1.5rem; }
+  .hero { padding: 0 1.5rem; align-items: end; padding-bottom: 4rem; }
+  .hero-video { filter: grayscale(60%) contrast(1.15) brightness(.35); }
+  .hero-name { font-size: 3.5rem; }
+  .hero-stats { gap: 1.5rem; }
+  .hero-stat-num { font-size: 2rem; }
+  .section-head { flex-direction: column; align-items: start; margin-bottom: 3rem; }
+  .booking-form { padding: 2rem 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(6, 200px); }
+  .gallery-item.large { grid-column: span 1; grid-row: span 1; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .scroll-hint { display: none; }
+}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee {
+  background: #ff2d2d;
+  color: #000;
+  padding: 1.2rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.marquee-track span { margin: 0 2rem; }
+.marquee-track .dot { color: #000; }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+</head>
+<body>
+
+<!-- КАСТОМНЫЙ КУРСОР -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- ПРЕЛОАДЕР -->
+<div class="preloader" id="preloader">
+  <div class="preloader-title" data-text="ДОБРОВИЦКИЙ">ДОБРОВИЦКИЙ</div>
+  <div class="preloader-sub">загружаем ринг</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<!-- ФОН -->
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- НАВИГАЦИЯ -->
+<nav class="navbar" id="navbar">
+  <a href="#hero" class="logo">
+    <div class="logo-mark">A</div>
+    <span>ДОБРОВИЦКИЙ</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">Обо мне</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#achievements">Достижения</a></li>
+    <li><a href="#gallery">Галерея</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta"><span>ЗАПИСАТЬСЯ</span></a>
+  <div class="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <!-- ВИДЕО-ФОН -->
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="images/photo-1.png">
+    <source src="video/training.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Тренер по боксу · Гомель</div>
+    <h1 class="hero-name">
+      <span class="line"><span>АЛЕКСАНДР</span></span>
+      <span class="line"><span class="last">ДОБРОВИЦКИЙ</span></span>
+    </h1>
+    <p class="hero-sub">
+      Превращаю новичков в <b>уверенных бойцов</b>. Индивидуальный подход, проверенная методика,
+      работа на результат. <b>Гомель · Очно и онлайн.</b>
+    </p>
+    <div class="hero-cta">
+      <a href="#booking" class="btn btn-primary">
+        ЗАПИСАТЬСЯ НА ТРЕНИРОВКУ
+        <span class="arrow">→</span>
+      </a>
+      <a href="#services" class="btn btn-ghost">
+        МОИ УСЛУГИ
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="10">0</span><span class="plus">+</span></div>
+      <div class="hero-stat-label">Лет в боксе</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="200">0</span><span class="plus">+</span></div>
+      <div class="hero-stat-label">Учеников</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="15">0</span><span class="plus">+</span></div>
+      <div class="hero-stat-label">Наград</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">прокрути вниз</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>★ БОКС</span><span class="dot">●</span>
+    <span>СИЛА</span><span class="dot">●</span>
+    <span>ДИСЦИПЛИНА</span><span class="dot">●</span>
+    <span>СКОРОСТЬ</span><span class="dot">●</span>
+    <span>ВЫНОСЛИВОСТЬ</span><span class="dot">●</span>
+    <span>ХАРАКТЕР</span><span class="dot">●</span>
+    <span>★ БОКС</span><span class="dot">●</span>
+    <span>СИЛА</span><span class="dot">●</span>
+    <span>ДИСЦИПЛИНА</span><span class="dot">●</span>
+    <span>СКОРОСТЬ</span><span class="dot">●</span>
+    <span>ВЫНОСЛИВОСТЬ</span><span class="dot">●</span>
+    <span>ХАРАКТЕР</span><span class="dot">●</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img src="images/photo-1.png" alt="Александр Добровицкий" />
+      <div class="about-img-badge">
+        <div>
+          <svg viewBox="0 0 200 200">
+            <defs>
+              <path id="circle" d="M 100,100 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"></path>
+            </defs>
+            <text>
+              <textPath href="#circle">ТРЕНЕР • БОКСЁР • НАСТАВНИК • • • </textPath>
+            </text>
+          </svg>
+        </div>
+        <span>10+<small>ЛЕТ</small></span>
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <div class="section-tag">Обо мне</div>
+      <h2>БОКС — ЭТО <span class="accent">ХАРАКТЕР</span>,<br> А НЕ КУЛАКИ</h2>
+      <p>
+        Меня зовут Александр Добровицкий. Я профессиональный тренер по боксу с многолетним опытом
+        работы как с начинающими, так и с подготовленными спортсменами. За эти годы через мои руки
+        прошли десятки учеников — от подростков до взрослых мужчин и женщин, которые хотели изменить
+        себя.
+      </p>
+      <div class="about-quote">
+        «Я не учу драться. Я учу побеждать — в ринге и за его пределами. Бокс закаляет тело и
+        характер, и я знаю это на собственном опыте».
+      </div>
+      <p>
+        Тренировки проходят в оборудованном зале в Гомеле. Индивидуальный подход к каждому,
+        работа на вашу цель: сбросить вес, стать увереннее, подготовиться к соревнованиям
+        или просто научиться стоять за себя.
+      </p>
+      <div class="about-sig">АЛЕКСАНДР ДОБРОВИЦКИЙ</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">Услуги</div>
+      <h2 class="section-title">ЧТО Я <span class="accent">ПРЕДЛАГАЮ</span></h2>
+    </div>
+    <p class="section-desc">
+      Программы под любой уровень подготовки — от первого знакомства с боксом
+      до профессиональной подготовки к соревнованиям.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <h3 class="service-title">Персональные тренировки</h3>
+      <p class="service-desc">
+        Индивидуальная работа один-на-один. Полное внимание тренера, программа под ваши цели,
+        темп и физические данные.
+      </p>
+      <div class="service-meta">
+        <span>Длительность</span>
+        <b>60 мин</b>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <h3 class="service-title">Групповые занятия</h3>
+      <p class="service-desc">
+        Тренировки в мини-группах до 6 человек. Отличный вариант для тех, кто любит соревновательную
+        атмосферу и хочет тренироваться в команде.
+      </p>
+      <div class="service-meta">
+        <span>Группа</span>
+        <b>3-6 чел.</b>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+        <line x1="8" y1="21" x2="16" y2="21"></line>
+        <line x1="12" y1="17" x2="12" y2="21"></line>
+      </svg>
+      <h3 class="service-title">Онлайн-тренировки</h3>
+      <p class="service-desc">
+        Тренируйтесь из любой точки мира. Видеосвязь, персональная программа, контроль техники
+        и постоянная обратная связь.
+      </p>
+      <div class="service-meta">
+        <span>Формат</span>
+        <b>Zoom / Meet</b>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+      <h3 class="service-title">Подготовка к боям</h3>
+      <p class="service-desc">
+        Полный цикл подготовки к соревнованиям: ОФП, техника, тактика, спарринги, работа
+        с психологическим состоянием перед боем.
+      </p>
+      <div class="service-meta">
+        <span>Уровень</span>
+        <b>Продвинутый</b>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+      </svg>
+      <h3 class="service-title">ОФП и физподготовка</h3>
+      <p class="service-desc">
+        Общая физическая подготовка с элементами бокса. Идеально для тех, кто хочет привести
+        себя в форму, сбросить вес и стать выносливее.
+      </p>
+      <div class="service-meta">
+        <span>Для кого</span>
+        <b>Любой уровень</b>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">06</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"></path>
+        <path d="M9 11V7a3 3 0 0 1 6 0v4"></path>
+      </svg>
+      <h3 class="service-title">Детский бокс</h3>
+      <p class="service-desc">
+        Бокс для подростков 12-16 лет. Дисциплина, уверенность, физическое развитие.
+        Безопасная техника под строгим контролем тренера.
+      </p>
+      <div class="service-meta">
+        <span>Возраст</span>
+        <b>12-16 лет</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements" id="achievements">
+  <div class="section-head" style="justify-content: center; text-align: center; flex-direction: column;">
+    <div class="section-tag">Достижения</div>
+    <h2 class="section-title">ЦИФРЫ ГОВОРЯТ <span class="accent">САМИ ЗА СЕБЯ</span></h2>
+  </div>
+  <div class="ach-grid">
+    <div class="ach-item reveal">
+      <div class="ach-num"><span class="counter" data-target="10">0</span><span class="plus">+</span></div>
+      <div class="ach-divider"></div>
+      <div class="ach-label">Лет опыта</div>
+    </div>
+    <div class="ach-item reveal">
+      <div class="ach-num"><span class="counter" data-target="200">0</span><span class="plus">+</span></div>
+      <div class="ach-divider"></div>
+      <div class="ach-label">Учеников</div>
+    </div>
+    <div class="ach-item reveal">
+      <div class="ach-num"><span class="counter" data-target="15">0</span><span class="plus">+</span></div>
+      <div class="ach-divider"></div>
+      <div class="ach-label">Наград</div>
+    </div>
+    <div class="ach-item reveal">
+      <div class="ach-num"><span class="counter" data-target="95">0</span><span class="plus">%</span></div>
+      <div class="ach-divider"></div>
+      <div class="ach-label">Довольных клиентов</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-head" style="justify-content: center; text-align: center; flex-direction: column;">
+    <div class="section-tag">Как начать</div>
+    <h2 class="section-title">4 ШАГА К <span class="accent">ТВОЕМУ РИНГУ</span></h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="process-circle">1</div>
+      <h3 class="process-title">Заявка</h3>
+      <p class="process-desc">Оставьте заявку через форму или напишите мне в мессенджер. Отвечу в течение часа.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-circle">2</div>
+      <h3 class="process-title">Знакомство</h3>
+      <p class="process-desc">Бесплатная вводная встреча: обсуждаем цели, уровень, противопоказания.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-circle">3</div>
+      <h3 class="process-title">Программа</h3>
+      <p class="process-desc">Составляю персональный план тренировок под ваши цели и возможности.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-circle">4</div>
+      <h3 class="process-title">Результат</h3>
+      <p class="process-desc">Тренируемся, отслеживаем прогресс, корректируем программу.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">Галерея</div>
+      <h2 class="section-title">МОИ <span class="accent">ТРЕНИРОВКИ</span></h2>
+    </div>
+    <p class="section-desc">
+      Атмосфера зала, процесс работы с учениками и моменты с соревнований.
+    </p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item large">
+      <img src="images/training-1.png" alt="Тренировка" />
+      <div class="gal-cap">
+        <b>В РИНГЕ</b>
+        <span>Спарринг</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/training-2.png" alt="Отработка" />
+      <div class="gal-cap">
+        <b>ОТРАБОТКА</b>
+        <span>Техника ударов</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/training-3.png" alt="Подготовка" />
+      <div class="gal-cap">
+        <b>ПОДГОТОВКА</b>
+        <span>Тренировка</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/training-1.png" alt="Фокус" />
+      <div class="gal-cap">
+        <b>ФОКУС</b>
+        <span>Концентрация</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/training-2.png" alt="Сила" />
+      <div class="gal-cap">
+        <b>СИЛА</b>
+        <span>Характер</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">Отзывы</div>
+      <h2 class="section-title">ЧТО ГОВОРЯТ <span class="accent">УЧЕНИКИ</span></h2>
+    </div>
+  </div>
+  <div class="testi-track">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Пришёл в зал с нулевым уровнем, боялся даже в перчатки заходить. Через 3 месяца — реальные спарринги и уверенность в себе. Саша — жёсткий, но справедливый тренер.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">ДМ</div>
+        <div>
+          <div class="testi-name">Дмитрий М.</div>
+          <div class="testi-role">Гомель · 8 месяцев тренировок</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Занимаюсь полгода, минус 12 кг и плюс тонна энергии. Программа под меня, всё разложено по полочкам. Рекомендую всем, кто хочет реальных изменений.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">АК</div>
+        <div>
+          <div class="testi-name">Анна К.</div>
+          <div class="testi-role">Гомель · 6 месяцев тренировок</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Готовились с Александром к первым соревнованиям. Результат — победа. Без него бы не справился. Он верит в тебя сильнее, чем ты сам.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">ВП</div>
+        <div>
+          <div class="testi-name">Виктор П.</div>
+          <div class="testi-role">Речица · 1 год тренировок</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Сын-подросток занимается уже год. Стал дисциплинированнее, увереннее, да и физически окреп. Спасибо за правильный подход к детям!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">ЕС</div>
+        <div>
+          <div class="testi-name">Елена С.</div>
+          <div class="testi-role">Гомель · 1 год тренировок</div>
+        </div>
+      </div>
+    </div>
+    <!-- Дублируем для бесконечной прокрутки -->
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Пришёл в зал с нулевым уровнем, боялся даже в перчатки заходить. Через 3 месяца — реальные спарринги и уверенность в себе. Саша — жёсткий, но справедливый тренер.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">ДМ</div>
+        <div>
+          <div class="testi-name">Дмитрий М.</div>
+          <div class="testi-role">Гомель · 8 месяцев тренировок</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Занимаюсь полгода, минус 12 кг и плюс тонна энергии. Программа под меня, всё разложено по полочкам. Рекомендую всем, кто хочет реальных изменений.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">АК</div>
+        <div>
+          <div class="testi-name">Анна К.</div>
+          <div class="testi-role">Гомель · 6 месяцев тренировок</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-grid">
+    <div class="booking-info reveal">
+      <div class="section-tag">Запись</div>
+      <h2>ЗАПИШИСЬ НА <span class="accent">КОНСУЛЬТАЦИЮ</span></h2>
+      <p>
+        Оставьте заявку, и я свяжусь с вами в течение часа, чтобы обсудить детали
+        и подобрать удобное время для первой тренировки. Первая вводная встреча —
+        бесплатно.
+      </p>
+      <ul class="booking-list">
+        <li><b>Локация:</b> Гомель, ул. Советская, 12 (зал «РИНГ»)</li>
+        <li><b>Время работы:</b> Пн-Сб с 8:00 до 22:00</li>
+        <li><b>Первая тренировка:</b> Бесплатная ознакомительная</li>
+        <li><b>Формат:</b> Очно в зале или онлайн</li>
+        <li><b>Возраст:</b> от 12 лет, без верхней планки</li>
+      </ul>
+    </div>
+
+    <form class="booking-form reveal" id="bookingForm">
+      <h3 class="form-title">Оставить заявку</h3>
+      <p class="form-sub">Заполните форму, и я свяжусь с вами</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Имя *</label>
+          <input type="text" name="name" placeholder="Ваше имя" required />
+        </div>
+        <div class="form-group">
+          <label>Телефон *</label>
+          <input type="tel" name="phone" placeholder="+375 29 ..." required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Удобный мессенджер</label>
+        <select name="messenger">
+          <option value="telegram">Telegram</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="viber">Viber</option>
+          <option value="phone">Перезвонить</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Тип тренировки</label>
+        <select name="type">
+          <option value="personal">Персональная тренировка</option>
+          <option value="group">Групповая тренировка</option>
+          <option value="online">Онлайн-тренировка</option>
+          <option value="kids">Детский бокс</option>
+          <option value="consult">Бесплатная консультация</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Сообщение (необязательно)</label>
+        <textarea name="message" placeholder="Расскажите о вашем опыте и целях..."></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">ОТПРАВИТЬ ЗАЯВКУ</button>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">✓</div>
+        <h3>ЗАЯВКА ОТПРАВЛЕНА</h3>
+        <p>Я свяжусь с вами в течение часа в удобном мессенджере</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">Контакты</div>
+      <h2 class="section-title">МОИ <span class="accent">КОНТАКТЫ</span></h2>
+    </div>
+    <p class="section-desc">Свяжитесь со мной любым удобным способом — отвечаю быстро.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="reveal">
+      <ul class="contact-info-list">
+        <li>
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div>
+            <b>Адрес</b>
+            <span>г. Гомель, ул. Советская, 12<br>Зал единоборств «РИНГ»</span>
+          </div>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div>
+            <b>Телефон</b>
+            <a href="tel:+375291234567">+375 29 123-45-67</a>
+          </div>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div>
+            <b>Email</b>
+            <a href="mailto:info@dobrovitsky.box">info@dobrovitsky.box</a>
+          </div>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div>
+            <b>Время работы</b>
+            <span>Пн-Сб: 8:00 — 22:00<br>Вс: по записи</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="socials">
+        <a href="#" class="social" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="#" class="social" aria-label="Telegram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+        </a>
+        <a href="#" class="social" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.5a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.4z"/>
+          </svg>
+        </a>
+        <a href="#" class="social" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-map reveal">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=30.9871%2C52.4235%2C31.0271%2C52.4435&amp;layer=mapnik&amp;marker=52.4335%2C31.0071"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Гомель на карте">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#hero" class="logo">
+        <div class="logo-mark">A</div>
+        <span>ДОБРОВИЦКИЙ</span>
+      </a>
+      <p>Профессиональный тренер по боксу в Гомеле. Превращаю новичков в уверенных бойцов. Индивидуальный подход, проверенная методика, работа на результат.</p>
+    </div>
+    <div>
+      <div class="footer-title">Навигация</div>
+      <ul class="footer-list">
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#achievements">Достижения</a></li>
+        <li><a href="#gallery">Галерея</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-title">Услуги</div>
+      <ul class="footer-list">
+        <li><a href="#services">Персональные</a></li>
+        <li><a href="#services">Групповые</a></li>
+        <li><a href="#services">Онлайн</a></li>
+        <li><a href="#services">Подготовка к боям</a></li>
+        <li><a href="#services">Детский бокс</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Александр Добровицкий. Все права защищены.</span>
+    <span>Сделано с ❤ в Гомеле</span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   ПРЕЛОАДЕР
+   ============================================================ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hidden');
+  }, 2200);
+});
+
+/* ============================================================
+   КАСТОМНЫЙ КУРСОР
+   ============================================================ */
+const cursor = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursorDot');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursorDot.style.left = mouseX + 'px';
+  cursorDot.style.top = mouseY + 'px';
+});
+
+function animateCursor() {
+  cursorX += (mouseX - cursorX) * 0.15;
+  cursorY += (mouseY - cursorY) * 0.15;
+  cursor.style.left = cursorX + 'px';
+  cursor.style.top = cursorY + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, button, .service-card, .gallery-item, .testi-card, .ach-item, .process-step').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+/* ============================================================
+   НАВИГАЦИЯ — СКРОЛЛ
+   ============================================================ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+revealElements.forEach(el => revealObserver.observe(el));
+
+/* ============================================================
+   СЧЁТЧИКИ
+   ============================================================ */
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const counter = entry.target;
+      const target = +counter.getAttribute('data-target');
+      const duration = 2000;
+      const start = performance.now();
+      const animate = (now) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(animate);
+        else counter.textContent = target;
+      };
+      requestAnimationFrame(animate);
+      counterObserver.unobserve(counter);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+/* ============================================================
+   ПАРАЛЛАКС HERO
+   ============================================================ */
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const heroVideo = document.querySelector('.hero-video');
+  const heroContent = document.querySelector('.hero-content');
+  if (heroVideo && scrolled < window.innerHeight) {
+    heroVideo.style.transform = `translateY(${scrolled * 0.25}px) scale(1.05)`;
+    heroContent.style.transform = `translateY(${scrolled * 0.15}px)`;
+    heroContent.style.opacity = 1 - (scrolled / 800);
+  }
+});
+
+/* ============================================================
+   TILT-ЭФФЕКТ НА КАРТОЧКАХ
+   ============================================================ */
+document.querySelectorAll('.service-card, .ach-item').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+/* ============================================================
+   ФОРМА — ОБРАБОТКА
+   ============================================================ */
+const bookingForm = document.getElementById('bookingForm');
+const formSuccess = document.getElementById('formSuccess');
+
+bookingForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Имитация отправки
+  const submitBtn = bookingForm.querySelector('.form-submit');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'ОТПРАВКА...';
+  submitBtn.disabled = true;
+
+  setTimeout(() => {
+    // Скрываем поля формы
+    Array.from(bookingForm.querySelectorAll('.form-row, .form-group, .form-submit, .form-note, .form-title, .form-sub'))
+      .forEach(el => el.style.display = 'none');
+    formSuccess.classList.add('show');
+
+    // Здесь можно подключить реальный бэкенд:
+    // fetch('/api/booking', { method: 'POST', body: new FormData(bookingForm) })
+
+    setTimeout(() => {
+      bookingForm.reset();
+      Array.from(bookingForm.querySelectorAll('.form-row, .form-group, .form-submit, .form-note, .form-title, .form-sub'))
+        .forEach(el => el.style.display = '');
+      formSuccess.classList.remove('show');
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }, 5000);
+  }, 1200);
+});
+
+/* ============================================================
+   ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
+   ============================================================ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#' || href.length < 2) return;
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      const offset = 80;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ============================================================
+   МАГНИТНЫЕ КНОПКИ
+   ============================================================ */
+document.querySelectorAll('.btn, .nav-cta').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+});
+</script>
+</body>
+</html>
